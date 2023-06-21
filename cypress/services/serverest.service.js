@@ -1,3 +1,4 @@
+import Factory from "../fixtures/factory"
 const URL_USUARIOS = '/usuarios';
 const URL_LOGIN = '/login';
 const URL_PRODUTOS = '/produtos';
@@ -31,16 +32,13 @@ static buscarProdutos(){
 
 }
 static cadastrarProdutoComSucesso(){
+   let produto = Factory.gerarProduto();
+
     cy.log('BEARER >> '+Cypress.env('bearer'))
     return cy.request({
             method: 'POST',
             url: URL_PRODUTOS,
-            body: {
-                "nome":"Fone Marrom",
-                "preco":"30",
-                "descricao":"Fone",
-                "quantidade":"100",
-            },
+            body: produto,
             failOnStatusCode: true,
             auth:{
                 bearer: Cypress.env("bearer")
